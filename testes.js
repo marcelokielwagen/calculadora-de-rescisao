@@ -1,0 +1,14 @@
+const R = require('./calculo.js'); let ok = 0, bad = 0;
+const t = (n, a, b) => { if (Math.abs(a - b) < 0.011) ok++; else { bad++; console.log('FALHOU', n, a, b); } };
+t('INSS teto', R.inss(20000), 988.09); t('INSS mínimo', R.inss(1621), 121.58);
+t('IR 5000 zera', R.irrf(5000, R.inss(5000), 0).imposto, 0);
+t('IR 5500', R.irrf(5500, R.inss(5500), 0).imposto, 190.47);
+t('IR 10000', R.irrf(10000, R.inss(10000), 0).imposto, 1569.55);
+const b = { admissao: '2022-03-01', saida: '2026-06-15', remuneracao: 3000, tipo: 'sem_justa', aviso: 'indenizado', feriasVencidas: 0, dependentes: 0, saldoFGTS: 20000 };
+const r = R.calcular(b);
+t('aviso 42 dias', r.det.diasAviso, 42); t('avos 13', r.det.avos13, 7); t('avos férias', r.det.avosF, 5);
+t('líquido', r.liquido, 8870.98); t('multa 40%', r.fgts.multa, 8238.40);
+t('justa', R.calcular({ ...b, tipo: 'justa', feriasVencidas: 1 }).liquido, 5387.5);
+t('pedido sem FGTS', R.calcular({ ...b, tipo: 'pedido' }).fgts.total, 0);
+t('acordo saque 80%+20%', R.calcular({ ...b, tipo: 'acordo' }).fgts.total, 20428);
+console.log(ok + ' ok, ' + bad + ' falhas'); process.exit(bad ? 1 : 0);
