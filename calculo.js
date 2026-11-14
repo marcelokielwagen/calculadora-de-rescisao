@@ -192,7 +192,8 @@
     var depRes = r2(0.08 * (saldo + v13 + avisoVal));
     var baseMulta = r2(saldoFGTS + depRes);
     var multa = r2(baseMulta * T.multa);
-    var saque = r2(baseMulta * T.saque);
+    var aniv = !!inp.saqueAniversario;
+    var saque = aniv ? 0 : r2(baseMulta * T.saque);
 
     function soma(a, f) { return r2(a.reduce(function (s, x) { return s + (f ? f(x) : x.valor); }, 0)); }
     var totProv = soma(prov), totDesc = soma(desc);
@@ -201,7 +202,8 @@
     var fgtsTotal = r2(saque + multa);
 
     if (!T.seguro) { /* sem aviso */ } else obs.push("Você tem direito ao seguro-desemprego (se cumprir os prazos de carência): peça no app Carteira de Trabalho Digital ou gov.br em até 120 dias.");
-    if (T.saque === 0) obs.push("Neste tipo de saída o saldo do FGTS NÃO pode ser sacado agora; ele continua na conta.");
+    if (aniv && T.saque > 0) obs.push("Saque-aniversário: você NÃO saca o saldo do FGTS na demissão (ele fica na conta e só sai no mês do seu aniversário), mas recebe a multa normalmente.");
+    else if (T.saque === 0) obs.push("Neste tipo de saída o saldo do FGTS NÃO pode ser sacado agora; ele continua na conta.");
     if (inp.tipo === "acordo") obs.push("No acordo você saca 80% do FGTS, recebe 20% de multa e metade do aviso. Não tem seguro-desemprego.");
     obs.push("A empresa tem até 10 dias corridos após o último dia para pagar as verbas rescisórias.");
 
@@ -209,7 +211,7 @@
       tipo: inp.tipo, nomeTipo: T.nome, aviso: aviso, det: det,
       proventos: prov, descontos: desc, obs: obs,
       totalProventos: totProv, totalDescontos: totDesc, impostos: impostos, liquido: liquido,
-      fgts: { saldo: saldoFGTS, estimado: estimado, depositoRescisao: depRes, base: baseMulta, multaPct: T.multa, multa: multa,
+      fgts: { aniversario: aniv, saldo: saldoFGTS, estimado: estimado, depositoRescisao: depRes, base: baseMulta, multaPct: T.multa, multa: multa,
               saquePct: T.saque, saque: saque, total: fgtsTotal },
       totalGeral: r2(liquido + fgtsTotal)
     };

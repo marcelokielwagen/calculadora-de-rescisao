@@ -11,4 +11,5 @@ t('líquido', r.liquido, 8870.98); t('multa 40%', r.fgts.multa, 8238.40);
 t('justa', R.calcular({ ...b, tipo: 'justa', feriasVencidas: 1 }).liquido, 5387.5);
 t('pedido sem FGTS', R.calcular({ ...b, tipo: 'pedido' }).fgts.total, 0);
 t('acordo saque 80%+20%', R.calcular({ ...b, tipo: 'acordo' }).fgts.total, 20428);
+const an=R.calcular({ ...b, saqueAniversario: true }); t('aniversário: saque 0', an.fgts.saque, 0); t('aniversário: multa mantida', an.fgts.total, 8238.40);
 console.log(ok + ' ok, ' + bad + ' falhas'); process.exit(bad ? 1 : 0);

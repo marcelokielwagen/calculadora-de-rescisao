@@ -125,6 +125,9 @@ footer strong{color:var(--ink);font-weight:600}
     <label class="f">Saldo do FGTS (se souber)
       <div class="in"><span>R$</span><input id="saldoFGTS" inputmode="decimal" placeholder="deixe vazio para estimar"></div>
       <span class="hint">Veja no app FGTS. Vazio = estimativa de 8% ao mês.</span></label>
+    <label class="f">Modalidade do FGTS
+      <div class="in"><select id="modalidade"><option value="rescisao">Saque-rescisão (padrão)</option><option value="aniversario">Saque-aniversário</option></select></div>
+      <span class="hint">No saque-aniversário você não saca o saldo ao ser demitido, só a multa.</span></label>
     <label class="f">Adiantamento de 13º já recebido
       <div class="in"><span>R$</span><input id="adiantamento13" inputmode="decimal" placeholder="0,00"></div></label>
     <label class="f">Outros descontos (consignado, vale etc.)
@@ -221,7 +224,7 @@ var ultimo=null;
 function entrada(t){
   return {admissao:$("admissao").value,saida:$("saida").value,fimContrato:$("fimContrato").value,remuneracao:num($("salario").value),
     tipo:t||tipo,aviso:$("aviso").value,feriasVencidas:$("feriasVencidas").value,feriasDobro:$("feriasDobro").value,
-    dependentes:$("dependentes").value,saldoFGTS:num($("saldoFGTS").value),adiantamento13:num($("adiantamento13").value),
+    dependentes:$("dependentes").value,saldoFGTS:num($("saldoFGTS").value),saqueAniversario:$("modalidade").value==="aniversario",adiantamento13:num($("adiantamento13").value),
     outrosProventos:num($("outrosProventos").value),outrosDescontos:num($("outrosDescontos").value)};
 }
 function valida(i){
@@ -251,7 +254,7 @@ function calc(){
   $("tFgts").innerHTML=
    '<tr><td>Saldo na conta'+(f.estimado?'<small>estimado (8% por mês) — confira no app FGTS</small>':'')+'</td><td class="v">'+fmt(f.saldo)+'</td></tr>'+
    '<tr><td>Depósito da rescisão<small>8% sobre saldo de salário, 13º e aviso indenizado</small></td><td class="v">'+fmt(f.depositoRescisao)+'</td></tr>'+
-   '<tr><td>Saque do saldo ('+Math.round(f.saquePct*100)+'%)</td><td class="v">'+fmt(f.saque)+'</td></tr>'+
+   '<tr><td>Saque do saldo ('+(f.aniversario?'0% — saque-aniversário':Math.round(f.saquePct*100)+'%')+')</td><td class="v">'+fmt(f.saque)+'</td></tr>'+
    '<tr><td>Multa do FGTS ('+Math.round(f.multaPct*100)+'%)<small>paga pela empresa, sem imposto</small></td><td class="v">'+fmt(f.multa)+'</td></tr>'+
    '<tr class="tot"><td>Total do FGTS liberado</td><td class="v">'+fmt(f.total)+'</td></tr>';
   $("obs").innerHTML=r.obs.map(function(o){return "<li>"+o+"</li>"}).join("");
