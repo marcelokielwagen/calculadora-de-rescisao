@@ -29,7 +29,12 @@ p{margin:0;max-width:64ch}
 .eyebrow{font:700 14px/1 var(--body);letter-spacing:.09em;text-transform:uppercase;color:var(--accent)}
 .lead{font-size:17px;color:var(--muted)}
 .head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.theme{font:600 13px var(--body);padding:6px 12px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;flex:none}
+.ic{display:inline-grid;vertical-align:-4px;margin-right:7px;color:var(--accent)}
+.ic svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lt{display:flex;align-items:center}.lt .ic{margin-right:8px}
+.stats .ic{display:block;margin:0 0 6px}.stats .ic svg{width:26px;height:26px}
+.btn .ic,.go .ic{color:inherit;margin-right:8px;vertical-align:-4px}
+.theme{display:inline-flex;align-items:center;gap:6px;font:600 13px var(--body);padding:6px 12px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;flex:none}
 .step{display:flex;align-items:baseline;gap:12px}
 .step b{font:700 15px/1 var(--mono);background:var(--ink);color:var(--bg);width:28px;height:28px;display:inline-grid;place-items:center;border-radius:4px;flex:none}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
@@ -76,16 +81,18 @@ details .stack{padding-top:10px;font-size:15.5px}
 footer{font-size:13.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;display:flex;flex-direction:column;gap:4px}
 footer strong{color:var(--ink);font-weight:600}
 [hidden]{display:none!important}
+@media (max-width:560px){.cmp{font-size:13px}.cmp td.v,.cmp th.v{font-size:12px;white-space:normal;padding-left:2px}.cmp td:first-child{max-width:110px}.cmp th.v:nth-child(2),.cmp td.v:nth-child(2){display:none}}
 @media print{.noprint{display:none!important}body{background:#fff;color:#000}.result{border:0;padding:0}}
 </style></head>
-<body><div class="wrap">
+<body><svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol><symbol id="i-door" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></symbol><symbol id="i-cash" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></symbol><symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4M12 17h.01"/></symbol><symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10M9 21V10M15 21V10M19 21V10M2 10l10-6 10 6z"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol><symbol id="i-calc" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h8"/></symbol><symbol id="i-print" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol><symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></symbol><symbol id="i-wallet" viewBox="0 0 24 24"><path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></symbol></defs></svg>
+<div class="wrap">
 <div class="topo noprint"></div>
 
 <header class="stack">
   <div class="head">
     <div class="stack"><span class="eyebrow">Trabalhista · CLT · tabelas 2026</span>
     <h1>Calculadora de Rescisão</h1></div>
-    <button class="theme noprint" id="tema" type="button">Tema</button>
+    <button class="theme noprint" id="tema" type="button" aria-label="Alternar tema claro ou escuro"></button>
   </div>
   <p class="lead">Veja quanto você recebe ao sair do emprego, já com os descontos do governo (INSS e Imposto de Renda), o FGTS e a multa. Funciona para cada tipo de saída.</p>
 </header>
@@ -184,6 +191,17 @@ var DESC={
  justa:"Demissão por falta grave sua. Só saldo de salário e férias vencidas."};
 var AV={indenizado:"Indenizado (a empresa paga e você não trabalha)",trabalhado:"Trabalhado (você cumpriu o aviso)",nao_cumprido:"Não cumpri (desconto de 30 dias)",dispensado:"Empresa me dispensou de cumprir"};
 var tipo="sem_justa";
+function ico(n){return '<span class="ic" aria-hidden="true"><svg><use href="#i-'+n+'"/></svg></span>'}
+(function(){
+  var M={admissao:"cal",saida:"door",salario:"cash",tipo:"help",modalidade:"bank",fimContrato:"cal",aviso:"clock",feriasVencidas:"sun",feriasDobro:"sun",dependentes:"users",saldoFGTS:"bank",adiantamento13:"cash",outrosDescontos:"minus",outrosProventos:"plus"};
+  Object.keys(M).forEach(function(id){
+    var lab=$(id).closest("label.f"),t=lab.firstChild;if(!t||t.nodeType!==3)return;
+    var s=document.createElement("span");s.className="lt";s.innerHTML=ico(M[id]);s.appendChild(document.createTextNode(t.textContent.trim()));lab.replaceChild(s,t);
+  });
+  function pre(el,n){el.insertAdjacentHTML("afterbegin",ico(n))}
+  pre($("calc"),"calc");pre($("imprimir"),"print");pre($("copiar"),"copy");
+  var sm=document.querySelectorAll("details summary");pre(sm[0],"sliders");pre(sm[1],"shield");pre(sm[2],"help");
+})();
 
 // tipo de saída
 var selT=$("tipo");
@@ -230,10 +248,10 @@ function calc(){
   var r=R.calcular(i);ultimo=r;
   $("res").hidden=false;$("resTipo").textContent=r.nomeTipo;
   $("stats").innerHTML=
-   '<div class="big"><b>'+fmt(r.liquido)+'</b><span>Líquido da rescisão (pago pela empresa)</span></div>'+
-   '<div><b>'+fmt(r.fgts.total)+'</b><span>FGTS liberado (saque + multa)</span></div>'+
-   '<div><b>'+fmt(r.totalGeral)+'</b><span>Total geral que entra no seu bolso</span></div>'+
-   '<div><b>'+fmt(r.impostos)+'</b><span>INSS + IR descontados</span></div>';
+   '<div class="big">'+ico("wallet")+'<b>'+fmt(r.liquido)+'</b><span>Líquido da rescisão (pago pela empresa)</span></div>'+
+   '<div>'+ico("bank")+'<b>'+fmt(r.fgts.total)+'</b><span>FGTS liberado (saque + multa)</span></div>'+
+   '<div>'+ico("cash")+'<b>'+fmt(r.totalGeral)+'</b><span>Total geral que entra no seu bolso</span></div>'+
+   '<div>'+ico("shield")+'<b>'+fmt(r.impostos)+'</b><span>INSS + IR descontados</span></div>';
   $("tProv").innerHTML=linhas(r.proventos,"pos")+'<tr class="tot"><td>Total bruto</td><td class="v">'+fmt(r.totalProventos)+'</td></tr>';
   $("tDesc").innerHTML=linhas(r.descontos,"neg")+'<tr class="tot"><td>Total de descontos</td><td class="v">− '+fmt(r.totalDescontos)+'</td></tr><tr class="tot"><td>Líquido da rescisão</td><td class="v">'+fmt(r.liquido)+'</td></tr>';
   var f=r.fgts,T=R.TIPOS[r.tipo];
@@ -264,12 +282,15 @@ $("copiar").addEventListener("click",function(){
   var m=$("msg"),ok=function(){m.textContent="Resumo copiado."},no=function(){m.textContent="Não consegui copiar neste navegador."};
   try{navigator.clipboard.writeText(t.join("\n")).then(ok,no)}catch(e){no()}
 });
-// tema
+// tema (claro/escuro)
+function atual(){return document.documentElement.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light")}
+function pintaTema(){var d=atual()==="dark";$("tema").innerHTML=ico(d?"sun":"moon")+(d?"Claro":"Escuro")}
 var th=null;try{th=localStorage.getItem("rescisaoTema")}catch(e){}
 if(th)document.documentElement.setAttribute("data-theme",th);
+pintaTema();
 $("tema").addEventListener("click",function(){
-  var d=document.documentElement,cur=d.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");
-  var n=cur==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("rescisaoTema",n)}catch(e){}
+  var n=atual()==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);
+  try{localStorage.setItem("rescisaoTema",n)}catch(e){}pintaTema();
 });
 })();
 </script>
