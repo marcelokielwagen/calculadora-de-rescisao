@@ -90,51 +90,42 @@ footer strong{color:var(--ink);font-weight:600}
   <p class="lead">Veja quanto você recebe ao sair do emprego, já com os descontos do governo (INSS e Imposto de Renda), o FGTS e a multa. Funciona para cada tipo de saída.</p>
 </header>
 
-<section class="stack noprint" aria-labelledby="s1">
-  <div class="step"><b>1</b><h2 id="s1">Dados do contrato</h2></div>
+<section class="stack noprint">
   <div class="grid">
-    <label class="f">Data de admissão
+    <label class="f">Admissão
       <div class="in"><input type="date" id="admissao"></div></label>
     <label class="f">Último dia trabalhado
       <div class="in"><input type="date" id="saida"></div></label>
-    <label class="f">Último salário + média de extras/comissões
+    <label class="f">Salário (com média de extras/comissões)
       <div class="in"><span>R$</span><input id="salario" inputmode="decimal" placeholder="0,00"></div></label>
-    <label class="f">Dependentes no Imposto de Renda
-      <div class="in"><input id="dependentes" type="number" min="0" max="20" value="0"></div></label>
-  </div>
-  <p class="hint">Se você recebe horas extras, comissão, adicional noturno ou de insalubridade, some a média dos últimos 12 meses ao salário.</p>
-</section>
-
-<section class="stack noprint" aria-labelledby="s2">
-  <div class="step"><b>2</b><h2 id="s2">Como foi a saída?</h2></div>
-  <div class="strats" id="tipos"></div>
-  <label class="f" id="boxFim" hidden>Data prevista para o fim do contrato
-    <div class="in"><input type="date" id="fimContrato"></div></label>
-</section>
-
-<section class="stack noprint" aria-labelledby="s3">
-  <div class="step"><b>3</b><h2 id="s3">Detalhes</h2></div>
-  <div class="grid">
-    <label class="f" id="boxAviso">Aviso prévio
-      <div class="in"><select id="aviso"></select></div></label>
-    <label class="f">Períodos de férias vencidas (não tiradas)
-      <div class="in"><input id="feriasVencidas" type="number" min="0" max="5" value="0"></div>
-      <span class="hint" id="hintAnos"></span></label>
-    <label class="f">Desses, quantos venceram há mais de 1 ano (pagos em dobro)
-      <div class="in"><input id="feriasDobro" type="number" min="0" max="5" value="0"></div></label>
-    <label class="f">Saldo do FGTS (se souber)
-      <div class="in"><span>R$</span><input id="saldoFGTS" inputmode="decimal" placeholder="deixe vazio para estimar"></div>
-      <span class="hint">Veja no app FGTS. Vazio = estimativa de 8% ao mês.</span></label>
+    <label class="f">Como foi a saída?
+      <div class="in"><select id="tipo"></select></div></label>
     <label class="f">Modalidade do FGTS
-      <div class="in"><select id="modalidade"><option value="rescisao">Saque-rescisão (padrão)</option><option value="aniversario">Saque-aniversário</option></select></div>
-      <span class="hint">No saque-aniversário você não saca o saldo ao ser demitido, só a multa.</span></label>
-    <label class="f">Adiantamento de 13º já recebido
-      <div class="in"><span>R$</span><input id="adiantamento13" inputmode="decimal" placeholder="0,00"></div></label>
-    <label class="f">Outros descontos (consignado, vale etc.)
-      <div class="in"><span>R$</span><input id="outrosDescontos" inputmode="decimal" placeholder="0,00"></div></label>
-    <label class="f">Outros valores a receber (sem imposto)
-      <div class="in"><span>R$</span><input id="outrosProventos" inputmode="decimal" placeholder="0,00"></div></label>
+      <div class="in"><select id="modalidade"><option value="rescisao">Saque-rescisão (padrão)</option><option value="aniversario">Saque-aniversário</option></select></div></label>
+    <label class="f" id="boxFim" hidden>Fim previsto do contrato
+      <div class="in"><input type="date" id="fimContrato"></div></label>
   </div>
+  <p class="hint" id="descTipo"></p>
+  <details><summary>Mais opções (férias vencidas, aviso, dependentes, descontos)</summary>
+    <div class="grid" style="padding-top:12px">
+      <label class="f" id="boxAviso">Aviso prévio
+        <div class="in"><select id="aviso"></select></div></label>
+      <label class="f">Férias vencidas não tiradas (períodos)
+        <div class="in"><input id="feriasVencidas" type="number" min="0" max="5" value="0"></div>
+        <span class="hint" id="hintAnos"></span></label>
+      <label class="f">Desses, vencidos há mais de 1 ano (dobro)
+        <div class="in"><input id="feriasDobro" type="number" min="0" max="5" value="0"></div></label>
+      <label class="f">Dependentes no IR
+        <div class="in"><input id="dependentes" type="number" min="0" max="20" value="0"></div></label>
+      <label class="f">Saldo do FGTS (vazio = estimar)
+        <div class="in"><span>R$</span><input id="saldoFGTS" inputmode="decimal" placeholder="estimado"></div></label>
+      <label class="f">13º já adiantado
+        <div class="in"><span>R$</span><input id="adiantamento13" inputmode="decimal" placeholder="0,00"></div></label>
+      <label class="f">Outros descontos
+        <div class="in"><span>R$</span><input id="outrosDescontos" inputmode="decimal" placeholder="0,00"></div></label>
+      <label class="f">Outros valores a receber
+        <div class="in"><span>R$</span><input id="outrosProventos" inputmode="decimal" placeholder="0,00"></div></label>
+    </div></details>
   <button class="go" id="calc" type="button">Calcular rescisão</button>
   <div class="erro" id="erro" hidden></div>
 </section>
@@ -194,22 +185,17 @@ var DESC={
 var AV={indenizado:"Indenizado (a empresa paga e você não trabalha)",trabalhado:"Trabalhado (você cumpriu o aviso)",nao_cumprido:"Não cumpri (desconto de 30 dias)",dispensado:"Empresa me dispensou de cumprir"};
 var tipo="sem_justa";
 
-// fichas
-var box=$("tipos");
-Object.keys(R.TIPOS).forEach(function(k){
-  var l=document.createElement("label");l.className="strat"+(k===tipo?" sel":"");
-  l.innerHTML='<input type="radio" name="tipo" value="'+k+'"'+(k===tipo?" checked":"")+'><h3>'+R.TIPOS[k].nome+'</h3><p>'+DESC[k]+'</p>';
-  box.appendChild(l);
-});
+// tipo de saída
+var selT=$("tipo");
+Object.keys(R.TIPOS).forEach(function(k){var o=document.createElement("option");o.value=k;o.textContent=R.TIPOS[k].nome;selT.appendChild(o)});
 function setTipo(k){
-  tipo=k;
-  [].forEach.call(box.children,function(c){c.classList.toggle("sel",c.querySelector("input").value===k)});
+  tipo=k;$("descTipo").textContent=DESC[k];
   var T=R.TIPOS[k],sel=$("aviso");
   sel.innerHTML=T.aviso.map(function(a){return '<option value="'+a+'">'+AV[a]+'</option>'}).join("");
   $("boxAviso").hidden=!T.aviso.length;
   $("boxFim").hidden=!(k==="antecipado_empregador"||k==="antecipado_empregado");
 }
-box.addEventListener("change",function(e){setTipo(e.target.value);if(!$("res").hidden)calc()});
+selT.addEventListener("change",function(){setTipo(selT.value);if(!$("res").hidden)calc()});
 setTipo(tipo);
 
 // dica de anos de casa
